@@ -1,0 +1,34 @@
+{
+  "name": "ucsclibrary",
+  "version": "1.0.0",
+  "description": "Online Library Management System",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "*",
+    "mongoose": "*",
+    "bcrypt": "*",
+    "cors": "*",
+    "jsonwebtoken": "*",
+    "body-parser": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lahiruhashan/UCSCLibrary.git"
+  },
+  "keywords": [
+    "library",
+    "management",
+    "system"
+  ],
+  "author": "Lahiru Hashan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lahiruhashan/UCSCLibrary/issues"
+  },
+  "homepage": "https://github.com/lahiruhashan/UCSCLibrary#readme"
+}
