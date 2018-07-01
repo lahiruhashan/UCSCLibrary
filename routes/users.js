@@ -8,11 +8,12 @@ const User = require('../models/user');
 //register
 router.post('/register', (req, res, next) => {
     let newUser = new User({
-        name : req.body.name,
+        firstName : req.body.firstName,
+        lastName : req.body.lastName,
+        indexNumber: req.body.indexNumber,
         email : req.body.email,
         password : req.body.password,
-        batch: req.body.batch,
-        indexNumber: req.body.indexNumber
+        type: req.body.type
     });
 
     User.addUser(newUser, (err, user) => {
@@ -60,10 +61,11 @@ router.post('/authenticate', (req, res, next) => {
                     token : `Bearer ${token}`,
                     user : {
                         id : user._id,
-                        name : user.name,
+                        firstName : user.firstName,
+                        lastName : user.lastName,
+                        indexNumber: user.indexNumber,
                         email : user.email,
-                        batch: user.batch,
-                        indexNumber: user.indexNumber
+                        type:  user.type
                     }
                 });
             }else{
@@ -80,6 +82,166 @@ router.post('/authenticate', (req, res, next) => {
 router.get('/profile', passport.authenticate('jwt', {session : false}), (req, res, next) => {
     res.json({
         user : req.user
+    })
+});
+
+//check availability
+router.post('/checkAvailability', (req, res, next) => {
+    const email = req.body.email;
+    const indexNumber = req.body.indexNumber;
+
+    User.getUserByEmail(email, (err, user) => {
+        if(err){
+            throw err;
+        }else{
+            if (!user){
+                User.getUserByIndex(indexNumber, (err, user) => {
+                   if (err){
+                       throw err;
+                   }else{
+                       if (!user){
+                           return res.json({
+                               success: true,
+                               msg: 'No user available'
+                           });
+                       }else{
+                           return res.json({
+                               success: false,
+                               msg: 'User found'
+                           });
+                       }
+                   }
+                });
+            }else{
+                return res.json({
+                    success: false,
+                    msg: 'User found'
+                });
+            }
+        }
+    });
+});
+
+router.post('/checkAdminAvailability', (req, res, next) => {
+    const email = req.body.email;
+
+    User.getUserByEmail(email, (err, user) => {
+        if(err){
+            throw err;
+        }else{
+            if (!user){
+                return res.json({
+                    success: true,
+                    msg: 'No user available'
+                });
+            }else{
+                return res.json({
+                    success: false,
+                    msg: 'User found'
+                });
+            }
+        }
+    });
+});
+
+
+router.post('/burrowBook', function (req, res, next) {
+    const email = req.body.email;
+    const bookId = req.body.bookId;
+
+    User.burrowBook(bookId, email, (err, count) => {
+       if (err){
+           throw err;
+       }else{
+           if (count){
+              res.json({
+                  success: true
+              });
+           }else{
+               res.json({
+                   success: false
+               })
+           }
+       }
+    });
+});
+
+router.post('/getReserved', function (req, res, next) {
+    const email = req.body.email;
+    User.getReserved(email, (err, books) => {
+        if (err){
+            throw err;
+        }else{
+            if (!books){
+                res.json({
+                    success: false,
+                    msg: 'No reserved books'
+                });
+            }else{
+                res.json({
+                    success: true,
+                    books: books
+                })
+            }
+        }
+    });
+});
+
+router.post('/getRead', function (req, res, next) {
+    const email = req.body.email;
+    User.getRead(email, (err, books) => {
+        if (err){
+            throw err;
+        }else{
+            if (!books){
+                res.json({
+                    success: false,
+                    msg: 'No Read books'
+                });
+            }else{
+                res.json({
+                    success: true,
+                    books: books
+                })
+            }
+        }
+    });
+});
+
+router.post('/getAllUsers', function (req, res, next) {
+    User.getAllUsers((err, users) => {
+        if (err){
+            throw err;
+        }else{
+            if (!users){
+                res.json({
+                    success: false,
+                    msg: 'No Users'
+                });
+            }else{
+                res.json({
+                    success: true,
+                    users: users
+                });
+            }
+        }
+    });
+});
+
+router.post('/returnBook', function (req, res, next) {
+    const bookId = req.body.bookId;
+    const indexNumber = req.body.indexNumber;
+    const reservedDate = req.body.reservedDate;
+
+    User.returnBook(bookId, indexNumber, reservedDate, (err, data) => {
+        if (err){
+            throw err;
+        }
+        if(data){
+            res.json({
+                success: true
+            })
+        }
     })
 });
 

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Returning a Book?</h1>
+<div mat-dialog-content>
+  <p style="font-family: 'Quicksand', sans-serif; font-size: 1.1em">You want to return <b> {{data.name}}</b>  book?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClickRemove()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="1" cdkFocusInitial>OK</button>
+</div>
