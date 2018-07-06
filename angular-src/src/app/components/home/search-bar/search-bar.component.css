@@ -1,0 +1,15 @@
+#search-box{
+  width: 100vw;
+  padding-top: 20px;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+
+#search-icon{
+  cursor: pointer;
+}
+
+::ng-deep .mat-form-field {
+  width: 70%;
+}

@@ -1,0 +1,61 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+h1.app-name {
+  font-family: 'Lobster', sans-serif;
+  margin-left: 15px;
+  font-size: 1.4em;
+}
+
+.logo{
+  font-size: 40px;
+  height: 30px;
+  width: 30px;
+}
+
+.nav-main-menu, .icon {
+  padding: 0 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  outline: 0;
+  border: none;
+  border-radius: 2px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-main-menu:hover, .icon:hover{
+  background-color: #2d3d96;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-main-menu{
+  padding: 0 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.active{
+  border-bottom: 2px solid #fff;
+}

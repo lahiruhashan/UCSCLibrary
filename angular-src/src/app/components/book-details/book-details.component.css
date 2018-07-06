@@ -1,0 +1,24 @@
+.container{
+  margin-top: 100px;
+  width: 70%;
+  margin-left: calc((100vw - 70%)/2);
+  font-family: 'Raleway', sans-serif;
+}
+
+.card {
+  max-width: 200px;
+  box-shadow: none !important;
+}
+
+.image, .desc{
+  float: left;
+}
+
+.image{
+  max-width: 300px;
+}
+
+.desc{
+  margin-left: 20px;
+}
+

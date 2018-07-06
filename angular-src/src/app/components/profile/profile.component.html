@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="left-section">
+    <div class="profile-image">
+      <img src="http://www.newsshare.in/wp-content/uploads/2017/04/Miniclip-8-Ball-Pool-Avatar-16.png" alt="">
+    </div>
+  </div>
+  <div class="right-section" *ngIf="user">
+    <mat-card class="invite">Hello, {{user.firstName}} {{user.lastName}}</mat-card>
+    <mat-form-field appearance="outline" class="properties">
+      <mat-label class="label">First Name</mat-label>
+      <input matInput disabled value="{{user.firstName}}">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="properties">
+      <mat-label class="label">Last Name</mat-label>
+      <input matInput disabled value="{{user.lastName}}">
+    </mat-form-field>
+    <mat-form-field *ngIf="authService.memberLoggedIn()" appearance="outline" class="properties">
+      <mat-label class="label">Index Number</mat-label>
+      <input matInput disabled value="{{user.indexNumber}}">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="properties">
+      <mat-label class="label">Email</mat-label>
+      <input matInput disabled value="{{user.email}}">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="editProfile(user.email)" >Edit Profile</button>
+  </div>
+</div>

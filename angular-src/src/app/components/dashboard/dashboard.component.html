@@ -1,0 +1,124 @@
+<div class="container">
+  <mat-card *ngIf="user" class="welcome-text">Welcome, {{user.firstName}} {{user.lastName}}</mat-card>
+  <mat-tab-group  #tabGroup (selectedIndexChange)="_setDataSource($event)">
+    <mat-tab label="Your Books">
+      <div class="content">
+        <mat-toolbar>Reserved Books</mat-toolbar>
+        <mat-form-field>
+          <input matInput autocomplete="off" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <div class="loading-shade"
+             *ngIf="isLoadingResults">
+          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        </div>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="Reserved Date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Reserved Date </th>
+              <td mat-cell *matCellDef="let row"> {{row.reservedDate | date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Book Name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Book Name </th>
+              <td mat-cell *matCellDef="let row"> {{row.bookName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Author">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Author </th>
+              <td mat-cell *matCellDef="let row"> {{row.author}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Due Date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </th>
+              <td mat-cell *matCellDef="let row"> {{row.dueDate}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+
+          <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+      <div class="content">
+        <mat-toolbar>Books You Read</mat-toolbar>
+        <mat-form-field>
+          <input matInput autocomplete="off" (keyup)="applyFilterRead($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <div class="loading-shade"
+             *ngIf="isLoadingResultsBookRead">
+          <mat-spinner *ngIf="isLoadingResultsBookRead"></mat-spinner>
+        </div>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSourceBookRead" matSort>
+
+            <ng-container matColumnDef="Reserved Date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Reserved Date </th>
+              <td mat-cell *matCellDef="let row"> {{row.reservedDate | date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Book Name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Book Name </th>
+              <td mat-cell *matCellDef="let row"> {{row.bookName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Author">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Author </th>
+              <td mat-cell *matCellDef="let row"> {{row.author}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Returned Date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Returned Date </th>
+              <td mat-cell *matCellDef="let row"> {{row.returnedDate | date}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsBookRead"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsBookRead;">
+            </tr>
+          </table>
+
+          <mat-paginator #paginatorRead [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Fines">
+      <div class="content">
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSourceFines" matSort>
+
+            <ng-container matColumnDef="Book Name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Book Name </th>
+              <td mat-cell *matCellDef="let row"> {{row.bookName}} </td>
+              <td mat-footer-cell *matFooterCellDef> Total </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Author">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Author </th>
+              <td mat-cell *matCellDef="let row"> {{row.author}} </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container matColumnDef="Due Date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </th>
+              <td mat-cell *matCellDef="let row"> {{row.dueDate}} </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container matColumnDef="Fine">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fine (LKR) </th>
+              <td mat-cell *matCellDef="let row"> {{row.fine}} </td>
+              <td mat-footer-cell *matFooterCellDef> {{totalFines.toFixed(2)}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsFines"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsFines;"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumnsFines; sticky: true"></tr>
+          </table>
+          <mat-paginator #paginatorFine [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

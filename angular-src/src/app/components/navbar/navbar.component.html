@@ -1,0 +1,19 @@
+<div class="container">
+  <mat-toolbar color="primary" class="toolbar">
+    <a><mat-icon class="logo">local_library</mat-icon></a>
+    <h1 class="app-name">UCSC Library</h1>
+    <span class="spacer"></span>
+    <span *ngIf="!authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}" [routerLink] = "['/login']" class="nav-main-menu">Login</span>
+    <span *ngIf="!authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}" [routerLink] = "['/register']" class="nav-main-menu">Register</span>
+    <mat-icon *ngIf="authService.adminLoggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}" [routerLink] = "['/adminHome']" matTooltip="Home" class="icon">home</mat-icon>
+    <mat-icon *ngIf="authService.adminLoggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}" [routerLink] = "['/requestedBooks']" matTooltip="Requested Books" class="icon">notifications_active</mat-icon>
+    <mat-icon *ngIf="authService.adminLoggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}" [routerLink] = "['/reports']" matTooltip="Create Reports" class="icon">description</mat-icon>
+    <mat-icon *ngIf="authService.adminLoggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}" [routerLink] = "['/addAdmin']" matTooltip="Add Admin" class="icon">person_add</mat-icon>
+    <mat-icon *ngIf="authService.adminLoggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}" [routerLink] = "['/addBook']" matTooltip="Add a Book" class="icon">note_add</mat-icon>
+    <mat-icon *ngIf="authService.memberLoggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}" [routerLink] = "['']" matTooltip="Home" class="icon">home</mat-icon>
+    <mat-icon *ngIf="authService.memberLoggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}" [routerLink] = "['/requestBook']" matTooltip="Request a Book" class="icon">screen_share</mat-icon>
+    <mat-icon *ngIf="authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}" [routerLink] = "['/profile']" matTooltip="Profile" class="icon">account_circle</mat-icon>
+    <mat-icon *ngIf="authService.memberLoggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}" [routerLink] = "['/dashboard']" matTooltip="Dashboard" class="icon">dashboard</mat-icon>
+    <mat-icon *ngIf="authService.loggedIn()" [routerLink] = "['/login']" (click)="onLogoutClick()"  matTooltip="Logout" class="icon">exit_to_app</mat-icon>
+  </mat-toolbar>
+</div>

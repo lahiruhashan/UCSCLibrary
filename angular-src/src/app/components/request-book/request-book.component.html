@@ -1,0 +1,49 @@
+<div class="container">
+  <div id="title">
+    <h1><span>Request a Book</span></h1>
+  </div>
+  <div id="form">
+    <form (submit)="onRequestSubmit()">
+      <div class="left-section">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Book Name</mat-label>
+          <input matInput autocomplete="off" placeholder="Book Name" [formControl]="bookNameFormControl"
+                 [errorStateMatcher]="matcher">
+          <mat-hint *ngIf="bookNameFormControl.value != ''"></mat-hint>
+          <mat-error *ngIf="bookNameFormControl.hasError('required')">
+            Book name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Author</mat-label>
+          <input matInput autocomplete="off" placeholder="Author" [formControl]="authorFormControl"
+                 [errorStateMatcher]="matcher">
+          <mat-hint *ngIf="authorFormControl.value != ''"></mat-hint>
+          <mat-error *ngIf="authorFormControl.hasError('required')">
+            Author name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Publisher (Only if you know)</mat-label>
+          <input matInput autocomplete="off" placeholder="Publisher (Only if you know)" [formControl]="publisherFormControl">
+        </mat-form-field>
+      </div>
+      <div class="right-section">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Edition (Only if you know)</mat-label>
+          <input matInput autocomplete="off" placeholder="Edition (Only if you know)" [formControl]="editionFormControl">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Category (As you know)</mat-label>
+          <input matInput placeholder="Category (As you know)" [formControl]="categoryFormControl">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Any description (Optional)</mat-label>
+          <input matInput placeholder="Any Description (Optional)" [formControl]="descriptionFormControl">
+        </mat-form-field>
+      </div>
+      <button class="full-width" id="submit-btn" mat-raised-button color="primary">Send Request</button>
+    </form>
+  </div>
+
+</div>

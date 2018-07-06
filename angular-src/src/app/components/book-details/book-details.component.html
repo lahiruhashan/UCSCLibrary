@@ -1,0 +1,19 @@
+<div *ngIf="book$" class="container">
+  <div class="image">
+    <mat-card class="card">
+      <img mat-card-image src="{{ book$.imageUrl }}" alt="{{ book$.name }}">
+    </mat-card>
+  </div>
+  <div class="desc">
+    <h1>{{ book$.name }}</h1><br>
+    <h3>Author : {{ book$.author }}</h3><br>
+    <h3>Pages : {{ book$.pages }}</h3><br>
+    <h3>Edition : {{ book$.edition }}</h3><br>
+    <h3>Publisher : {{ book$.publisher }}</h3><br>
+    <h3>Year : {{ book$.year }}</h3><br>
+    <mat-chip-list>
+      <mat-chip color="{{chipColor}}" selected="true">{{availability}}</mat-chip>
+      <button *ngIf="availability == 'Available'" (click)="reserveCopy()" mat-button color="primary">Reserve a Copy</button>
+    </mat-chip-list>
+  </div>
+</div>

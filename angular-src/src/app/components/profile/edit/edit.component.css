@@ -1,0 +1,47 @@
+.container{
+  width: 70%;
+  margin-left: calc((100vw - 70%)/2);
+  margin-top: 100px;
+}
+
+.left-section, .right-section{
+  float: left;
+}
+
+.left-section{
+  width: 30%;
+}
+
+.right-section{
+  width: 68%;
+  margin-left: 2%;
+}
+
+.profile-image{
+  width: 100%;
+  box-sizing: border-box;
+}
+
+img{
+  width: 100%;
+}
+
+.invite{
+  font-size: 1.5em;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.properties{
+  margin-top: 10px;
+  width: 100%;
+}
+
+.label{
+  color: #9e0099 !important;
+}
+
+input{
+  color: #303030 !important;
+}

@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="content">
+    <mat-toolbar>Return Books</mat-toolbar>
+    <mat-form-field>
+      <input matInput autocomplete="off" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <div class="loading-shade"
+         *ngIf="isLoadingResults">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="Book Name" cdkColumnDef="bookName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Book Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.bookName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Author">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Author </th>
+          <td mat-cell *matCellDef="let row"> {{row.author}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Student Index">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Student Index </th>
+          <td mat-cell *matCellDef="let row"> {{row.indexNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Burrowed Date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Burrowed Date </th>
+          <td mat-cell *matCellDef="let row"> {{row.burrowedDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Due Date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </th>
+          <td mat-cell *matCellDef="let row"> {{row.dueDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Fine">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fine (LKR) </th>
+          <td mat-cell *matCellDef="let row"> {{row.fine}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Return">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Return </th>
+          <td mat-cell *matCellDef="let row"> <button mat-raised-button color="primary" (click)="returnBook(row.bookId, row.bookName, row.indexNumber, row.reservedDate, row.fine, row.arrayIndex)">Return</button> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+
+      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>
