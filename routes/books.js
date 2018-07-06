@@ -4,6 +4,7 @@ const passport = require('passport');
 const config = require('../config/database');
 const Book = require('../models/book');
 const RequestBook = require('../models/requestBook');
+const Fine = require('../models/fine');
 
 router.post('/addBook', function (req, res, next) {
         let newBook = new Book({
@@ -216,6 +217,148 @@ router.post('/updateBookStatus', function (req, res, next) {
              success: true,
              msg: 'Updated'
           });
+      }
+   });
+});
+
+router.post('/addFine', function (req, res, next) {
+   let newFine = new Fine({
+     indexNumber : req.body.indexNumber,
+     bookName : req.body.bookName,
+     amount: req.body.amount,
+     datePaid : Date.now()
+   });
+   Fine.addFine(newFine, (err, result) => {
+      if (err){
+          throw err;
+      }
+      if (!result){
+          res.json({
+              success: false,
+              msg: 'Fine add failed'
+          });
+      }else{
+          res.json({
+              success: true,
+              msg: 'Fine added'
+          });
+      }
+   });
+});
+
+router.post('/getFines', function (req, res, next) {
+   const filter = req.body.filter;
+   const today = req.body.today;
+
+   Fine.getFines(filter, today, (err, fineData) => {
+       if (err){
+           throw  err;
+       }
+       if (!fineData){
+           res.json({
+               success : false,
+               msg: 'Fine Fetch Failed'
+           });
+       }else{
+           res.json({
+               success: true,
+               fines: fineData
+           });
+       }
+   });
+
+});
+
+router.post('/getBooksFilter', function (req, res, next) {
+   const filter = req.body.filter;
+   const today = req.body.today;
+
+   Book.getBooksFilter(filter, today, (err, bookData) => {
+       if (err){
+           throw  err;
+       }
+       if (!bookData){
+           res.json({
+               success : false,
+               msg: 'Fine Fetch Failed'
+           });
+       }else{
+           res.json({
+               success: true,
+               books: bookData
+           });
+       }
+   });
+
+});
+
+router.post('/getAllBooks', function (req, res, next) {
+   Book.getAllBooks((err, books) => {
+       if (err){
+           throw err;
+       }
+       if (!books){
+           res.json({
+               success: false,
+               msg: 'No Books Found'
+           });
+       }else{
+           res.json({
+               success: true,
+               books: books
+           });
+       }
+   });
+});
+
+router.post('/updateBook', function (req, res, next) {
+    let bookId = req.body.bookId;
+    let newBook = new Book({
+        name : req.body.bookName,
+        author : req.body.author,
+        pages : req.body.pages,
+        edition : req.body.edition,
+        publisher : req.body.publisher,
+        year : req.body.year,
+        imageUrl : req.body.imageUrl,
+        copies: req.body.copies,
+        from:req.body.from
+    });
+
+    Book.updateBook(bookId, newBook, (err, status) => {
+        if (err){
+            throw err;
+        }
+        if (!status){
+            res.json({
+                success: false,
+                msg: 'failed to update'
+            });
+        }else{
+            res.json({
+                success: true,
+                msg: 'successfully updated'
+            })
+        }
+    });
+});
+
+router.post('/deleteBook', function (req, res, next) {
+   const id = req.body.id;
+   Book.deleteBook(id, (err, status) => {
+      if (err){
+          throw err;
+      }
+      if (!status){
+          res.json({
+              success: false,
+              msg: 'Failed to delete'
+          });
+      }else{
+          res.json({
+              success: true,
+              msg: 'Deleted successfully'
+          })
       }
    });
 });

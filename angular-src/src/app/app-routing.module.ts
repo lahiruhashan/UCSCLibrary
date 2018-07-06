@@ -16,6 +16,8 @@ import {ReportComponent} from "./components/report/report.component";
 import {AddAdminComponent} from "./components/add-admin/add-admin.component";
 import {DefaultGuard} from "./guards/default.guard";
 import {ProfileGuard} from "./guards/profile.guard";
+import {UpdateBookComponent} from "./components/update-book/update-book.component";
+import {EditComponent} from "./components/profile/edit/edit.component";
 
 const routes: Routes = [
   {path:'', component: HomeComponent, canActivate: [AuthGuard]},
@@ -31,6 +33,8 @@ const routes: Routes = [
   {path:'adminHome', component: AdminHomeComponent, canActivate: [AdminGuard]},
   {path:'reports', component: ReportComponent, canActivate: [AdminGuard]},
   {path:'addAdmin', component: AddAdminComponent, canActivate: [AdminGuard]},
+  {path:'updateBook/:id', component: UpdateBookComponent, canActivate: [AdminGuard]},
+  {path:'profile/edit', component: EditComponent, canActivate: [ProfileGuard]},
 ];
 
 @NgModule({

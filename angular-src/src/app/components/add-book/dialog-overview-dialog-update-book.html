@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Updating a Book?</h1>
+<div mat-dialog-content>
+  <p style="font-family: 'Quicksand', sans-serif; font-size: 1.1em">You want to update the <b> {{data.bookName}}</b>  book?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClickRemove()">No Thanks</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="1" cdkFocusInitial>OK</button>
+</div>

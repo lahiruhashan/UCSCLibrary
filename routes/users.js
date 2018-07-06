@@ -245,4 +245,27 @@ router.post('/returnBook', function (req, res, next) {
     })
 });
 
+router.post('/updateUser', function (req, res, next) {
+    let user = {
+        email : req.body.email,
+        firstName : req.body.firstName,
+        lastName : req.body.lastName
+    };
+
+    User.updateUser(user, (err, data) => {
+       if (err){
+           throw err;
+       }
+       if (!data){
+           res.json({
+               success: false
+           });
+       }else{
+           res.json({
+               success: true
+           })
+       }
+    });
+});
+
 module.exports = router;

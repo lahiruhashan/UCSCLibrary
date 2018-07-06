@@ -105,3 +105,8 @@ module.exports.returnBook = function (bookId, indexNumber, reservedDate, callbac
     const query = {indexNumber : indexNumber};
     User.update(query, {$pull: { reservedBooks : {bookId : bookId}}, $addToSet: {pastBooks: bookDetail}}, callback);
 };
+
+module.exports.updateUser = function (user, callback) {
+    const query = {email: user.email};
+    User.update(query, {$set: {firstName : user.firstName, lastName: user.lastName}}, callback);
+};

@@ -58,6 +58,25 @@ module.exports.addBook = function (newBook, callback) {
     newBook.save(callback);
 };
 
+module.exports.updateBook = function (bookId, newBook, callback) {
+    const query = {_id :  Object(bookId)};
+    Book.update(query,{
+        name: newBook.name,
+        author: newBook.author,
+        pages: newBook.pages,
+        edition: newBook.edition,
+        publisher: newBook.publisher,
+        year: newBook.year,
+        imageUrl: newBook.imageUrl,
+        copies: newBook.copies
+    }, callback);
+};
+
+module.exports.deleteBook = function (bookId, callback) {
+    const query = {_id : Object(bookId)};
+    Book.remove(query,callback);
+};
+
 module.exports.countDown = function (bookId, value, callback) {
     const query = {_id: Object(bookId)};
     Book.update(query, {$set: {copies : (value - 1)}}, callback);
@@ -71,4 +90,16 @@ module.exports.countUp = function (bookId, value, callback) {
 module.exports.checkAvailability = function (bookName, author, callback) {
     const query = {name : bookName, author: author};
     Book.find(query, callback);
+};
+
+module.exports.getAllBooks = function (callback) {
+  Book.find(callback);
+};
+
+module.exports.getBooksFilter =  function(filter, today, callback){
+    if (filter === null){
+        Book.find(callback);
+    }else{
+        Book.find({from: {$gte : filter, $lte: today}}, callback);
+    }
 };
